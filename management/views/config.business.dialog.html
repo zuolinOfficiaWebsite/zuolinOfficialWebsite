@@ -1,0 +1,46 @@
+<md-dialog>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>选择范围</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <p aria-label="Close dialog">x</p>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div>
+                <div layout ng-repeat="scope in scopes">
+                    <md-select placeholder="可见范围" ng-model="scope.scopeCode">
+                        <md-option ng-repeat="type in scopeCodes" value="{{type.key}}">{{type.value}}
+                        </md-option>
+                    </md-select>
+
+                    <div ng-if="scope.scopeCode === '2'">
+                        <div flex zl-region-pick="city" ng-model="scope.city"></div>
+                    </div>
+
+                    <div ng-if="scope.scopeCode === '1'" layout="row">
+                        <div flex zl-region-pick="city" ng-model="city"></div>
+                        <div flex zl-community-pick pick-city-id="city.id" ng-model="scope.community"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <md-button type="button" class="md-raised" ng-click="addScope()">添加</md-button>
+                    <md-button type="button" class="md-raised" ng-click="removeScope()">删除</md-button>
+                </div>
+            </div>
+        </md-dialog-content>
+        <div class="md-actions" layout="row">
+            <span flex></span>
+            <md-button ng-click="answer('cancel')" class="md-primary">
+                取消
+            </md-button>
+            <md-button ng-click="answer(scopes)" class="md-primary">
+                完成
+            </md-button>
+        </div>
+    </form>
+</md-dialog>

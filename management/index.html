@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html ng-app="management">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1"/>
+    <title>管理后台</title>
+    <!-- inject:css -->
+    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
+    <link rel="stylesheet" href="bower_components/ng.zl/dist/ng.zl.min.css">
+    <link rel="stylesheet" href="css/eh_global.css">
+    <link rel="stylesheet" href="css/index.css">
+    <!-- endinject -->
+
+    <!-- inject:baidu:html -->
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?ea168f486054c9ef104c2a2167d9e411";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <!-- endinject -->
+</head>
+<body layout="row" ng-controller="AppController">
+
+<md-sidenav layout="column" class="site-sidenav md-sidenav-left md-whiteframe-z2"
+            md-component-id="left"
+            md-is-open="false" md-is-locked-open="$mdMedia('gt-md')">
+    <md-toolbar class="md-toolbar-tools md-tall">
+        <div flex class="text-center">
+            <i class="zl-icon-chrome"></i>
+
+            <h2>管理后台</h2>
+
+            <div ng-controller="AppUserController">
+                <small ng-if="!user" ng-click="onLogin()">请登录</small>
+                <small class="" ng-if="user">
+                    你好，<span ng-bind="user.nickName"></span>
+                    <span ng-click="onLogoff()">登出</span></small>
+            </div>
+        </div>
+    </md-toolbar>
+    <md-autocomplete class="site-sidenav-search" md-floating-label="search" md-selected-item="search.selectedItem"
+                     md-search-text="search.searchText" md-selected-item-change="search.onSelect(item)"
+                     md-items="item in search.querySearch(search.searchText)" md-item-text="item.name">
+        <span md-highlight-text="searchText">{{item.name}}</span>
+    </md-autocomplete>
+    <md-content flex role="navigation">
+        <md-list class="site-menu">
+            <md-list-item class="md-2-line" ng-repeat="section in menu.sections">
+                <div class="">
+                    <md-button ng-href="#" ng-click="menu.onHead(section)">
+                        <span ng-bind="section.name"></span>
+                        <i class="fa fa-angle-right md-secondary " ng-if="section.isClose"></i>
+                        <i class="fa fa-angle-down md-secondary" ng-if="!section.isClose"></i>
+                    </md-button>
+                    <md-list class="site-menu-child fade-in" collapse="section.isClose">
+                        <md-list-item ng-repeat="child in section.children">
+                            <div class="">
+                                <md-button ng-class="{active:menu.section[1] == child}" ng-href="#{{child.url}}"
+                                           ng-bind="child.name" ng-click="menu.onChildren()"></md-button>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-content>
+</md-sidenav>
+<div layout="column" flex>
+
+    <md-toolbar class="site-content-toolbar md-whiteframe-z2 md-toolbar-tools">
+        <md-button class="md-fab md-mini md-primary" ng-click="menu.toggle()">
+            <i class="fa fa-arrows-h"></i>
+        </md-button>
+        <h2>
+            <span ng-bind="menu.section[0].name"></span>
+            <i class="fa fa-angle-right"></i>
+            <span ng-bind="menu.section[1].name"></span>
+        </h2>
+        <span flex></span>
+
+    </md-toolbar>
+
+    <md-content class="site-content" id="_siteContent" flex layout-padding>
+        <div ui-view></div>
+    </md-content>
+</div>
+
+<div zl-scroll="scroll-top scroll-bottom"></div>
+
+<!-- inject:js -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/jquery-ui/jquery-ui.js"></script>
+<script src="bower_components/underscore/underscore-min.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-ui-date/src/date.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="bower_components/angular-aria/angular-aria.min.js"></script>
+<script src="bower_components/angular-material/angular-material.min.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angularLocalStorage/src/angularLocalStorage.js"></script>
+<script src="bower_components/zeroclipboard/dist/zeroclipboard.min.js"></script>
+<script src="bower_components/angular-zeroclipboard/src/angular-zeroclipboard.js"></script>
+<script src="js/common/uploadifive/jquery.uploadifive.min.js"></script>
+<script src="bower_components/ng.zl/dist/ng.zl.min.js"></script>
+<script src="bower_components/ng.zl/dist/compatibility.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/directives/apartment.pick.directive.js"></script>
+<script src="js/directives/building.pick.directive.js"></script>
+<script src="js/directives/community.pick.directive.js"></script>
+<script src="js/directives/region.pick.directive.js"></script>
+<script src="js/services/config.service.js"></script>
+<script src="js/services/data.cache.service.js"></script>
+<script src="js/services/data.service.js"></script>
+<script src="js/services/data.storage.service.js"></script>
+<script src="js/services/uploader.service.js"></script>
+<script src="js/controllers/ad.banner.controller.js"></script>
+<script src="js/controllers/ad.banner.create.controller.js"></script>
+<script src="js/controllers/address.apartment.audit.controller.js"></script>
+<script src="js/controllers/address.apartment.audit.phone.check.controller.js"></script>
+<script src="js/controllers/address.apartment.audit.phone.controller.js"></script>
+<script src="js/controllers/address.apartment.import.controller.js"></script>
+<script src="js/controllers/address.community.import.controller.js"></script>
+<script src="js/controllers/app.controller.js"></script>
+<script src="js/controllers/business.management.controller.js"></script>
+<script src="js/controllers/comment.management.controller.js"></script>
+<script src="js/controllers/community.audit.controller.js"></script>
+<script src="js/controllers/community.index.controller.js"></script>
+<script src="js/controllers/config.business.add.controller.js"></script>
+<script src="js/controllers/config.business.controller.js"></script>
+<script src="js/controllers/config.launchpad.item.add.controller.js"></script>
+<script src="js/controllers/config.launchpad.item.controller.js"></script>
+<script src="js/controllers/config.launchpad.layout.add.controller.js"></script>
+<script src="js/controllers/config.launchpad.layout.controller.js"></script>
+<script src="js/controllers/config.manage.controller.js"></script>
+<script src="js/controllers/config.server.controller.js"></script>
+<script src="js/controllers/demo.controller.js"></script>
+<script src="js/controllers/forum.activity.controller.js"></script>
+<script src="js/controllers/forum.management.controller.js"></script>
+<script src="js/controllers/government.organization.add.controller.js"></script>
+<script src="js/controllers/government.organization.community.controller.js"></script>
+<script src="js/controllers/government.organization.controller.js"></script>
+<script src="js/controllers/government.organization.member.controller.js"></script>
+<script src="js/controllers/group.management.controller.js"></script>
+<script src="js/controllers/group.management.topic.controller.js"></script>
+<script src="js/controllers/login.controller.js"></script>
+<script src="js/controllers/main.controller.js"></script>
+<script src="js/controllers/push.message.controller.js"></script>
+<script src="js/controllers/push.message.list.controller.js"></script>
+<script src="js/controllers/push.message.list.result.controller.js"></script>
+<script src="js/controllers/statistics.statistics.controller.js"></script>
+<script src="js/controllers/topic.detail.controller.js"></script>
+<script src="js/controllers/user.address.controller.js"></script>
+<script src="js/controllers/user.invite.controller.js"></script>
+<script src="js/controllers/user.management.controller.js"></script>
+<script src="js/controllers/user.verification.controller.js"></script>
+<script src="js/controllers/user.vest.batch.controller.js"></script>
+<script src="js/controllers/user.vest.controller.js"></script>
+<!-- endinject -->
+</body>
+</html>

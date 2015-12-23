@@ -1,0 +1,154 @@
+<div class="zl-w50p zl-display-page">
+    <md-toolbar class="zl-toolbar">
+        <div class="md-toolbar-tools">
+            <h4>
+                <span>新建机构</span>
+            </h4>
+        </div>
+    </md-toolbar>
+    <div class="zl-display-page-content">
+        <md-content layout-padding>
+            <form novalidate name="verification" ng-submit="onSubmit()">
+                <div>
+                    <md-select placeholder="商家来源类型" ng-model="itemList.targetType">
+                        <md-option ng-repeat="type in targetTypes" value="{{type.key}}">{{type.value}}</md-option>
+                    </md-select>
+                    <md-input-container>
+                        <label>商家名称</label>
+                        <input type="text" ng-model="itemList.name"/>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>商家显示名称</label>
+                        <input type="text" ng-model="itemList.displayName"/>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>联系人</label>
+                        <input type="text" ng-model="itemList.contact"/>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>联系方式</label>
+                        <input type="text" ng-model="itemList.phone"/>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>商家地址</label>
+                        <input type="text" ng-model="itemList.address"/>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>商家描述</label>
+                        <input type="text" ng-model="itemList.discription"/>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>商家网址</label>
+                        <input type="text" ng-model="itemList.url"/>
+                    </md-input-container>
+                </div>
+
+                <div layout-align="start center">
+                    <label>商家归属分类:</label>
+
+                    <div ng-repeat="category in categoryList">
+                        <md-checkbox ng-checked="exists(category.id, itemList.categroies)"
+                                     ng-click="selectCategory(category.id, itemList.categroies)">
+                            {{ category.name }}
+                        </md-checkbox>
+                    </div>
+
+                </div>
+                <br/>
+
+                <div layout-align="start center" class="zl-upload-img">
+                    <label>商家LOGO:</label>
+
+                    <div layout class="business-add-upload-img">
+
+                        <img class="md-avatar" ng-src="{{itemList.logoUrl}}"/>
+                        <button type="button" id="uploadImg">上传图片</button>
+                    </div>
+                </div>
+
+                <div>
+                    <md-button type="submit" class="md-raised md-primary">确认</md-button>
+                </div>
+            </form>
+        </md-content>
+    </div>
+</div>
+<!--<div layout="column">-->
+    <!--<md-content layout-padding>-->
+        <!--<form layout-align="start center" novalidate name="verification" ng-submit="onSubmit()">-->
+
+            <!--<div layout>-->
+                <!--<md-select placeholder="商家来源类型" ng-model="itemList.targetType">-->
+                    <!--<md-option ng-repeat="type in targetTypes" value="{{type.key}}">{{type.value}}</md-option>-->
+                <!--</md-select>-->
+                <!--<md-input-container>-->
+                    <!--<label>商家名称</label>-->
+                    <!--<input type="text" ng-model="itemList.name"/>-->
+                <!--</md-input-container>-->
+
+                <!--<md-input-container>-->
+                    <!--<label>商家显示名称</label>-->
+                    <!--<input type="text" ng-model="itemList.displayName"/>-->
+                <!--</md-input-container>-->
+
+                <!--<md-input-container>-->
+                    <!--<label>联系人</label>-->
+                    <!--<input type="text" ng-model="itemList.contact"/>-->
+                <!--</md-input-container>-->
+
+                <!--<md-input-container>-->
+                    <!--<label>联系方式</label>-->
+                    <!--<input type="text" ng-model="itemList.phone"/>-->
+                <!--</md-input-container>-->
+
+                <!--<md-input-container>-->
+                    <!--<label>商家地址</label>-->
+                    <!--<input type="text" ng-model="itemList.address"/>-->
+                <!--</md-input-container>-->
+
+                <!--<md-input-container>-->
+                    <!--<label>商家描述</label>-->
+                    <!--<input type="text" ng-model="itemList.discription"/>-->
+                <!--</md-input-container>-->
+
+                <!--<md-input-container>-->
+                    <!--<label>商家网址</label>-->
+                    <!--<input type="text" ng-model="itemList.url"/>-->
+                <!--</md-input-container>-->
+            <!--</div>-->
+
+            <!--<div layout-align="start center">-->
+                <!--<label>商家归属分类:</label>-->
+
+                <!--<div ng-repeat="category in categoryList">-->
+                    <!--<md-checkbox ng-checked="exists(category.id, itemList.categroies)"-->
+                                 <!--ng-click="selectCategory(category.id, itemList.categroies)">-->
+                        <!--{{ category.name }}-->
+                    <!--</md-checkbox>-->
+                <!--</div>-->
+
+            <!--</div>-->
+            <!--<br/>-->
+
+            <!--<div layout-align="start center" class="zl-upload-img">-->
+                <!--<label>商家LOGO:</label>-->
+
+                <!--<div layout class="business-add-upload-img">-->
+
+                    <!--<img class="md-avatar" ng-src="{{itemList.logoUrl}}"/>-->
+                    <!--<button type="button" id="uploadImg">上传图片</button>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div>-->
+                <!--<md-button type="submit" class="md-raised md-primary">确认</md-button>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</md-content>-->
+<!--</div>-->
